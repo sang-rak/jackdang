@@ -1,5 +1,5 @@
 const requests = {
-  fetchUsers: "/user",
+  fetchUsers: "/members",
 
 }
 
