@@ -19,10 +19,12 @@ public class Member extends BaseEntity {
 	@Id @GeneratedValue
 	@Column(name = "member_id")
 	private Long id;
-	
+	@Column(nullable = false, unique = true)
 	private String phone;
 	private String password;
+	// @Column(nullable = false, unique = true)
 	private String nickname;
+	// @Column(nullable = false)
 	private int age;
 	private String profile_filed;
 	private String introduce;

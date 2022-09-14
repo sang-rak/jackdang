@@ -1,30 +1,28 @@
 package com.jackdang.controller.members;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.jackdang.common.auth.JwtAuthProvider;
+import com.jackdang.controller.members.dto.AuthDto.AuthLoginRequest;
+import com.jackdang.controller.members.dto.AuthDto.AuthLoginResponse;
+import com.jackdang.controller.members.dto.MemberDto.*;
 import org.springframework.web.bind.annotation.*;
 
-import com.jackdang.controller.members.dto.MemberDto.CreateMemberRequest;
-import com.jackdang.controller.members.dto.MemberDto.CreateMemberResponse;
-import com.jackdang.controller.members.dto.MemberDto.MemberDtojoin;
-import com.jackdang.controller.members.dto.MemberDto.Result;
-import com.jackdang.controller.members.dto.MemberDto.UpdateMemberRequest;
-import com.jackdang.controller.members.dto.MemberDto.UpdateMemberResponse;
 import com.jackdang.domain.entity.members.Member;
 import com.jackdang.service.members.MemberService;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
-
+	private final JwtAuthProvider jwtAuthProvider;
 
     @GetMapping("/api/v1/members")
     public Result memberV1() {
@@ -71,5 +69,23 @@ public class MemberController {
     	return new UpdateMemberResponse(findMember.getId(), findMember.getPassword());
     	
     }
-    
+
+	/**
+	 * 회원 로그인
+	 */
+	@PostMapping("/api/excludePath/login")
+    public AuthLoginResponse loginMember(@RequestBody AuthLoginRequest request, HttpServletResponse response){
+
+		LocalDateTime now = LocalDateTime.now();
+		LocalDateTime exp = now.plusDays(1L); // 만료기간 1일
+
+		String status = "F";
+		// 계정정보 존재 및 일치 여부 확인
+		if ( memberService.login(request.getPhone(), request.getPassword()) ){
+			String token = jwtAuthProvider.createToken(request, now, exp); // 토큰 생성
+			response.setHeader("jwt-auth-token", token);
+			status = "S";
+		}
+		return new AuthLoginResponse(request.getPhone(), status);
+	}
 }

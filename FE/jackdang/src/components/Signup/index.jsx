@@ -213,7 +213,7 @@ const Signup = () => {
           <Form onSubmit={pageChangeAuth}>
             <Form.Group className="mb-3" controlId="formBasicCall">
               <Form.Label>회원님의 휴대폰으로 전송된</Form.Label>
-              <Form.Label>인증번호를 입력해주세요.</Form.Label>
+              <Form.Label> 인증번호를 입력해주세요.</Form.Label>
               <Form.Control             
                 type="authcode"
                 name="authcode"

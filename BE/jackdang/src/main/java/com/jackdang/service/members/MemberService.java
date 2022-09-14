@@ -51,4 +51,15 @@ public class MemberService {
 		member.setPassword(password);
 		
 	}
+
+	public boolean login(String phone, String password){
+		List<Member> findMembers = memberRepository.findByPhone(phone);
+		if (findMembers.isEmpty()){
+			return false;
+		}
+		if ( !password.equals(findMembers.get(0).getPassword()) ){
+			return false;
+		}
+		return true;
+	}
 }
