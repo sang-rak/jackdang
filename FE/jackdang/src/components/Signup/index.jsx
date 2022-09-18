@@ -9,7 +9,7 @@ import axios from "axios"
 // import { instance } from "../../api/axios";
 // import requests from "../.././api/requests";
 import React, { useEffect, useState } from "react";
-
+import MyModal from './Modal';
 const Signup = () => {
 
   // const [users, setUsers] = useState([]);
@@ -36,9 +36,20 @@ const Signup = () => {
   const [nickname, setNickname] = useState(""); // 닉네임
   const [gender, setGender] = useState(""); // 성별
   const [age, setAge] = useState(""); // 나이 
+  const [isOpen, setOpen] = useState(false); // 약관동의 모달 핸들링
+  // 약관동의 Modal
+  const handleClick = () => {
+    setOpen(true);
+  }
 
+  const handleModalSubmit = () => {
+    // 비지니스 로직
+    setOpen(false);
+  }
 
-
+  const handleModalCancel = () => {
+    setOpen(false);
+  }
 
   // 휴대폰번호 11자 확인
   const handleChange = ({ target: { value } }) => {
@@ -210,53 +221,66 @@ const Signup = () => {
         );
       case "인증화면":
         return(
-          <Form onSubmit={pageChangeAuth}>
-            <Form.Group className="mb-3" controlId="formBasicCall">
-              <Form.Label>회원님의 휴대폰으로 전송된</Form.Label>
-              <Form.Label> 인증번호를 입력해주세요.</Form.Label>
-              <Form.Control             
-                type="authcode"
-                name="authcode"
-                value={authcode}
-                onChange={handleChangeAuth} 
-                placeholder="인증번호 6자리" />
-            </Form.Group>
-            <Row >
-              <Button variant="secondary" type="submit" disabled={disabled}>
-                다음
-              </Button>
-            </Row>
-        </Form>
+          <div>
+            <Form onSubmit={pageChangeAuth}>
+              <Form.Group className="mb-3" controlId="formBasicCall">
+                <Form.Label>회원님의 휴대폰으로 전송된</Form.Label>
+                <Form.Label> 인증번호를 입력해주세요.</Form.Label>
+                <Form.Control             
+                  type="authcode"
+                  name="authcode"
+                  value={authcode}
+                  onChange={handleChangeAuth} 
+                  placeholder="인증번호 6자리" />
+              </Form.Group>
+              <Row >
+                <Button variant="secondary" type="submit" disabled={disabled}>
+                  다음
+                </Button>
+              </Row>
+            </Form>
+          </div>
         );
       case "비밀번호화면":
         return(
-          <Form onSubmit={pageChangePassword}>
-            <Form.Group className="mb-3" controlId="formBasicCall">
-              <Form.Label>비밀번호를 입력해주세요.</Form.Label>
-              <input type="text" value={phone} class="form-control">
-              </input>
-              <Form.Control             
-                type="password"
-                name="password"
-                value={password}
-                onChange={handleChangePassword} 
-                placeholder="비밀번호" />
-              <Form.Control             
-                type="password"
-                name="passwordcheck"
-                value={passwordcheck}
-                onChange={handleChangePasswordCheck} 
-                placeholder="비밀번호확인" />
-            </Form.Group>
-            <Row >
-              <Button variant="secondary" type="submit" disabled={disabled}>
-                다음
-              </Button>
-            </Row>
-        </Form>
+          <div>
+            <Form onSubmit={pageChangePassword}>
+              <Form.Group className="mb-3" controlId="formBasicCall">
+                <Form.Label>비밀번호를 입력해주세요.</Form.Label>
+                <input type="text" value={phone} class="form-control">
+                </input>
+                <Form.Control             
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={handleChangePassword} 
+                  placeholder="비밀번호" />
+                <Form.Control             
+                  type="password"
+                  name="passwordcheck"
+                  value={passwordcheck}
+                  onChange={handleChangePasswordCheck} 
+                  placeholder="비밀번호확인" />
+              </Form.Group>
+              <Row >
+                <Button variant="secondary" type="submit" disabled={disabled}>
+                  다음
+                </Button>
+              </Row>
+            </Form>
+            <div>
+              <button onClick={handleClick}>약관동의</button>
+              <MyModal 
+                isOpen={isOpen}
+                onSubmit={handleModalSubmit}
+                onCancel={handleModalCancel}
+              />
+            </div>
+          </div>
         );
-        case "필수정보화면":
-          return(
+      case "필수정보화면":
+        return(
+          <div>
             <Form onSubmit={pageChangeProfile}>
               <Form.Group className="mb-3" controlId="formBasicCall">
                 <Form.Label>알맞은 매칭을 위해서 필수적으로 필요해요.</Form.Label>
@@ -284,18 +308,18 @@ const Signup = () => {
                   다음
                 </Button>
               </Row>
-          </Form>
+            </Form>
+          </div>
         );
-        case "등록완료화면":
-          return(
-            <div>
-              <h2>가입이</h2> 
-              <h2>완료되었습니다.</h2>
-            </div>
-          );
-        
-        default:
-          break;
+      case "등록완료화면":
+        return(
+          <div>
+            <h2>가입이</h2> 
+            <h2>완료되었습니다.</h2>
+          </div>
+        );
+      default:
+        break;
     }
   }
 
