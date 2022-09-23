@@ -5,7 +5,10 @@ import { faCircleCheck as faCircleCheckRegular } from '@fortawesome/free-regular
 import Button from 'react-bootstrap/Button';
 import React, { useEffect, useState } from "react";
 
-const MyModal = ({ isOpen, onSubmit, onCancel }) => {
+
+const MyModal = ({ isOpen, onSubmit, marketingAgree, setMarketingAgree}) => {
+
+  
   //동의
   const handleClickSubmit = () => {
     onSubmit();
@@ -15,8 +18,17 @@ const MyModal = ({ isOpen, onSubmit, onCancel }) => {
   const [agree, setAgree] = useState(false); // 전체동의 버튼 활성화 유무
   const [serviceAgree, setServiceAgree] = useState(false); // 서비스 버튼 활성화 유무
   const [privacyAgree, setPrivacyAgree] = useState(false); // 개인정보 버튼 활성화 유무
-  const [marketingAgree, setMarketingAgree] = useState(false); // 마케팅동의 버튼 활성화 유무
-  
+  // const [marketingAgree, setMarketingAgree] = useState(false); // 마케팅동의 버튼 활성화 유무
+
+  useEffect(() => {
+    // 필수동의(서비스 및 개인정보) 모두 체크될 시 다음버튼 활성화
+    if (serviceAgree === true && privacyAgree === true) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [serviceAgree, privacyAgree])
+
   // 취소
   // const handleClickCancel = () => {
   //   onCancel();
@@ -30,19 +42,18 @@ const MyModal = ({ isOpen, onSubmit, onCancel }) => {
       setServiceAgree(false);
       setPrivacyAgree(false);
       setMarketingAgree(false);
-      setDisabled(true);
+
     } else {
       setAgree(true);
       setServiceAgree(true);
       setPrivacyAgree(true);
       setMarketingAgree(true);
-      setDisabled(false);
     }
 
   }
 
   // 서비스 이용약관 동의 클릭 
-  const handleChange1 = () => {
+  const serviceBtnEvent = () => {
 
     // 상태변화
     if (serviceAgree === true) {
@@ -50,16 +61,10 @@ const MyModal = ({ isOpen, onSubmit, onCancel }) => {
     } else {
       setServiceAgree(true);
     }
-    // 필수동의(서비스 및 개인정보) 모두 체크될 시 다음버튼 활성화
-    if (serviceAgree === true && privacyAgree === true) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
   }
 
   // 개인정보 처리방침 동의 클릭 
-  const handleChange2 = () => {
+  const privacyBtnEvent = () => {
 
     // 상태변화
     if (privacyAgree === true) {
@@ -67,18 +72,11 @@ const MyModal = ({ isOpen, onSubmit, onCancel }) => {
     } else {
       setPrivacyAgree(true);
     }
-
-    // 필수동의(서비스 및 개인정보) 모두 체크될 시 다음버튼 활성화
-    if (serviceAgree === true && privacyAgree === true) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
   }
 
 
   // 마케팅 정보 수신(선택) 동의 클릭 
-  const handleChange3 = () => {
+  const marketingBtnEvent = () => {
 
     // 상태변화
     if (marketingAgree === true) {
@@ -86,14 +84,8 @@ const MyModal = ({ isOpen, onSubmit, onCancel }) => {
     } else {
       setMarketingAgree(true);
     }
-
-    // 필수동의(서비스 및 개인정보) 모두 체크될 시 다음버튼 활성화
-    if (serviceAgree === true && privacyAgree === true) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
   }
+
 
   return (
     <ReactModal isOpen={isOpen}>
@@ -102,14 +94,14 @@ const MyModal = ({ isOpen, onSubmit, onCancel }) => {
       </div>
       <hr/>
       <div>
-        <FontAwesomeIcon icon={serviceAgree ? faCircleCheckSolid : faCircleCheckRegular} onClick={handleChange1} />  서비스 이용약관 내용보기
+        <FontAwesomeIcon icon={serviceAgree ? faCircleCheckSolid : faCircleCheckRegular} onClick={serviceBtnEvent} />  서비스 이용약관 내용보기
       </div>
 
       <div>
-        <FontAwesomeIcon icon={privacyAgree ? faCircleCheckSolid : faCircleCheckRegular} onClick={handleChange2} />  개인정보 처리방침 내용보기
+        <FontAwesomeIcon icon={privacyAgree ? faCircleCheckSolid : faCircleCheckRegular} onClick={privacyBtnEvent} />  개인정보 처리방침 내용보기
       </div>
       <div>
-        <FontAwesomeIcon icon={marketingAgree ? faCircleCheckSolid : faCircleCheckRegular} onClick={handleChange3} />  마케팅 정보 수신(선택) 내용보기
+        <FontAwesomeIcon icon={marketingAgree ? faCircleCheckSolid : faCircleCheckRegular} onClick={marketingBtnEvent} />  마케팅 정보 수신(선택) 내용보기
       </div>
       <Button variant="secondary" type="submit" disabled={disabled} onClick={handleClickSubmit}>다음</Button>
     </ReactModal>
