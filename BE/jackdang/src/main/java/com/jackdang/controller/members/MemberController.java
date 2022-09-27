@@ -38,13 +38,19 @@ public class MemberController {
     
     /*
      * 회원가입
-     * param: phone
+     * param: phone, password, nickname, gender, age, marketing_agree
+     * 
      */
     @PostMapping("/api/v1/members")
     public CreateMemberResponse saveMemberV1(@RequestBody @Valid CreateMemberRequest request) {
     	
     	Member member = new Member();
     	member.setPhone(request.getPhone());
+    	member.setPassword(request.getPassword());
+    	member.setNickname(request.getNickname());
+    	member.setGender(request.getGender());
+    	member.setAge(request.getAge());
+    	member.setMarketing_agree(request.isMarketing_agree());
     	 
     	Long id = memberService.join(member);
     	
