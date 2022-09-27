@@ -26,8 +26,10 @@ public class Member extends BaseEntity {
 	private String nickname;
 	// @Column(nullable = false)
 	private int age;
+	private String gender;
 	private String profile_filed;
 	private String introduce;
 	private String address;
+	private boolean marketing_agree;
 	
 }
