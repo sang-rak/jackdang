@@ -37,6 +37,11 @@ public class MemberDto {
     @Data
     public static class CreateMemberRequest {
     	private String phone;
+    	private String password;
+    	private String nickname;
+    	private String gender;    	
+    	private int age;
+    	private boolean marketing_agree;
     }
     
     @Data
