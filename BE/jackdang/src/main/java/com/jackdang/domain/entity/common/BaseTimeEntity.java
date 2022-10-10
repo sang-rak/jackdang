@@ -1,4 +1,4 @@
-package com.jackdang.domain.common;
+package com.jackdang.domain.entity.common;
 
 import java.time.LocalDateTime;
 
@@ -18,7 +18,7 @@ import lombok.Getter;
 public class BaseTimeEntity {
 	
 	@CreatedDate
-	@Column(updatable = false)
+	@Column(updatable = true)
 	private LocalDateTime createdDate;
 	
 	@LastModifiedDate
