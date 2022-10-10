@@ -5,9 +5,7 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Stack from "react-bootstrap/Stack";
-import axios from "axios";
-// import { instance } from "../../api/axios";
-// import requests from "../.././api/requests";
+import axios from "../../api/axios";
 import React, { useEffect, useState } from "react";
 import MyModal from "./Modal";
 const Signup = () => {
@@ -48,7 +46,6 @@ const Signup = () => {
   const handleModalSubmit = () => {
     // 비지니스 로직
     setOpen(false);
-    console.log(marketingAgree);
     setPagestatus("필수정보화면");
   };
 
@@ -167,15 +164,16 @@ const Signup = () => {
     } else {
       // 회원가입 전송
       try {
-        await axios.post("/api/v1/members", {
+        const response = await axios.post("/api/v1/members", {
           //보내고자 하는 데이터
           phone: phone,
           password: password,
           nickname: nickname,
           gender: gender,
           age: age,
-          marketingAgree: marketingAgree,
+          marketing_agree: marketingAgree,
         });
+        console.log(response);
 
         setPagestatus("등록완료화면");
       } catch (error) {
