@@ -3,9 +3,14 @@ package com.jackdang.controller.members.dto;
 import com.jackdang.controller.members.MemberController;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
+@NoArgsConstructor
+@Builder
 public class MemberDto {
 	
     @Data

@@ -1,25 +1,17 @@
-package com.jackdang.domain.entity.members;
+package com.jackdang.controller.members.dto;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.jackdang.domain.entity.common.BaseEntity;
+import com.jackdang.domain.entity.members.Member;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Entity
 @Getter
 @NoArgsConstructor
-public class Member extends BaseEntity {
+public class MemberV2Dto {
 	
-	@Id @GeneratedValue
 	@Column(name = "member_id")
 	private Long id;
 	@Column(nullable = false, unique = true)
@@ -36,7 +28,7 @@ public class Member extends BaseEntity {
 	private boolean marketing_agree;
 	
 	@Builder
-	public Member(
+	public MemberV2Dto(
 			Long id, 
 			String phone, 
 			String password, 
@@ -60,4 +52,19 @@ public class Member extends BaseEntity {
 		this.marketing_agree = marketing_agree;
 	}
 	
+	public Member toEntity() {
+		return Member.builder()
+				.id(id)
+				.phone(phone)
+				.password(password)
+				.password(password)
+				.nickname(nickname)
+				.age(age)
+				.gender(gender)
+				.profile_filed(profile_filed)
+				.introduce(introduce)
+				.address(address)
+				.marketing_agree(marketing_agree)
+				.build();
+	}
 }
