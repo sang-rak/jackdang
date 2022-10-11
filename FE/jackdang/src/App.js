@@ -1,13 +1,13 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import * as Pages from './pages';
-import { Route, Routes } from 'react-router-dom';
-import Nav from './components/common/Nav';
+import "bootstrap/dist/css/bootstrap.min.css";
+import * as Pages from "./pages";
+import { Route, Routes } from "react-router-dom";
+import Nav from "./components/common/Nav";
 
 function App() {
   return (
     <>
       {/* 로그인 회원가입 페이지 Nav 제거 */}
-      { window.location.pathname === '/' || (
+      {window.location.pathname === "/" || (
         <>
           <Nav />
         </>
@@ -16,7 +16,7 @@ function App() {
         <Route path="/" element={<Pages.LoginPage />} />
         <Route path="/signup" element={<Pages.SignupPage />} />
         <Route path="/tos" element={<Pages.TosPage />} />
-
+        <Route path="/chat" element={<Pages.ChatPage />} />
       </Routes>
     </>
   );
