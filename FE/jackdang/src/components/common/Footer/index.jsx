@@ -29,28 +29,30 @@ const Footer = () => {
   };
 
   return (
-    <Container className="blockquote-footer">
-      <Row>
-        <Col>
-          <FontAwesomeIcon icon={faHouse} onClick={HomePageChange} />
-        </Col>
-        <Col>
-          <FontAwesomeIcon
-            icon={faMagnifyingGlass}
-            onClick={SearchPageChange}
-          />
-        </Col>
-        <Col>
-          <FontAwesomeIcon icon={faPlus} onClick={RecommendPageChange} />
-        </Col>
-        <Col>
-          <FontAwesomeIcon icon={faComment} onClick={ChatPageChange} />
-        </Col>
-        <Col>
-          <FontAwesomeIcon icon={faUser} onClick={MyPageChange} />
-        </Col>
-      </Row>
-    </Container>
+    <footer>
+      <Container className="blockquote-footer">
+        <Row>
+          <Col>
+            <FontAwesomeIcon icon={faHouse} onClick={HomePageChange} />
+          </Col>
+          <Col>
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              onClick={SearchPageChange}
+            />
+          </Col>
+          <Col>
+            <FontAwesomeIcon icon={faPlus} onClick={RecommendPageChange} />
+          </Col>
+          <Col>
+            <FontAwesomeIcon icon={faComment} onClick={ChatPageChange} />
+          </Col>
+          <Col>
+            <FontAwesomeIcon icon={faUser} onClick={MyPageChange} />
+          </Col>
+        </Row>
+      </Container>
+    </footer>
   );
 };
 export default memo(Footer);

@@ -9,16 +9,6 @@ import axios from "../../api/axios";
 import React, { useEffect, useState } from "react";
 import MyModal from "./Modal";
 const Signup = () => {
-  // const [users, setUsers] = useState([]);
-
-  // // 회원 확인 코드
-  // const fetchUserData = async () => {
-  //   // const request = await axios.get(requests.fetchUsers);
-  //   const request = await axios.get("/api/v1/members");
-  //   console.log("request", request);
-  //   // setUsers(request.data.results);
-  // };
-
   // 회원 등록 코드
   const [phone, setPhone] = useState("");
   const [authcode, setAuthcode] = useState(""); // 인증번호
@@ -319,6 +309,9 @@ const Signup = () => {
           <div>
             <h2>가입이</h2>
             <h2>완료되었습니다.</h2>
+            <Button href="/" variant="secondary" type="submit">
+              로그인
+            </Button>
           </div>
         );
       default:
