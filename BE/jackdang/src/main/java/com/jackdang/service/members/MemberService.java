@@ -28,6 +28,7 @@ public class MemberService {
 		memberRepository.save(memberV2Dto.toEntity());
 		return memberV2Dto.getId();
 	}
+	
 //	@Transactional
 //	public Long join(Member member) {
 //		
@@ -49,9 +50,14 @@ public class MemberService {
 		return memberRepository.findAll();
 	}
 	
-	public Member findOne(Long memberId) {
-		return memberRepository.findById(memberId).get();
+	public MemberV2Dto findById(Long memberId) {
+		Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다"));
+		return new MemberV2Dto(member);
 	}
+//	
+//	public Member findOne(Long memberId) {
+//		return memberRepository.findById(memberId).get();
+//	}
 	
 //	@Transactional
 //	public void update(Long id, String password) {

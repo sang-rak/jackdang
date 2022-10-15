@@ -26,17 +26,7 @@ public class MemberController {
     private final MemberService memberService;
 	private final JwtAuthProvider jwtAuthProvider;
 
-    @GetMapping("/api/v1/members")
-    public Result memberV1() {
-    	List<Member> findMembers = memberService.findMembers();
-    	List<MemberDtojoin> collect = findMembers.stream()
-    			.map(m -> new MemberDtojoin(m.getPhone()))
-    			.collect(Collectors.toList());
-    	
-    	return new Result(collect.size(), collect);
-    	
-    	
-    }
+
     
     /*
      * 회원가입
@@ -63,7 +53,34 @@ public class MemberController {
 //    	
 //    	return new CreateMemberResponse(id);
 //    }
+
+    /*
+     * 회원 조회
+     * 회원 기본정보 조회
+     */
+    @GetMapping("/api/v1/member/{memberid}")
+    public MemberV2Dto findById(@PathVariable Long memberid) {
+    	return memberService.findById(memberid);
+    }
+    /*
+     * 회원 상세 조회
+     * 회원 마이페이지 상세정보 조회
+     */
     
+    
+    /*
+     * 전체 회원 조회
+     */
+    
+    @GetMapping("/api/v1/members")
+    public Result memberV1() {
+    	List<Member> findMembers = memberService.findMembers();
+    	List<MemberDtojoin> collect = findMembers.stream()
+    			.map(m -> new MemberDtojoin(m.getPhone()))
+    			.collect(Collectors.toList());
+    	
+    	return new Result(collect.size(), collect);
+    }
     /*
      * 회원 삭제
      * 회원가입한 고객이 인증번호를 제시못할경우 상제
