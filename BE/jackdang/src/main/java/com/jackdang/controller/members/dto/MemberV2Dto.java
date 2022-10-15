@@ -51,12 +51,13 @@ public class MemberV2Dto {
 		this.address = address;
 		this.marketing_agree = marketing_agree;
 	}
-	
+	/*
+	 * 회원 등록
+	 */
 	public Member toEntity() {
 		return Member.builder()
 				.id(id)
 				.phone(phone)
-				.password(password)
 				.password(password)
 				.nickname(nickname)
 				.age(age)
@@ -66,5 +67,20 @@ public class MemberV2Dto {
 				.address(address)
 				.marketing_agree(marketing_agree)
 				.build();
+	}
+	/*
+	 * 회원 조회
+	 */
+	public MemberV2Dto(Member member) {
+		this.id = member.getId();
+		this.phone = member.getPhone();
+		this.password = member.getPassword();
+		this.nickname = member.getNickname();
+		this.age = member.getAge();
+		this.gender = member.getGender();
+		this.profile_filed = member.getProfile_filed();
+		this.introduce = member.getIntroduce();
+		this.address = member.getAddress();
+
 	}
 }
