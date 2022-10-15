@@ -48,7 +48,9 @@ const Login = () => {
         // setPassword('');
         setSuccess(true);
         navigate("/chat");
-        // alert('로그인 성공');
+        window.location.reload();
+
+        alert("로그인 성공");
       } else {
         setErrMsg("전화번호 또는 비밀번호를 다시 확인해주세요");
         setSuccess(false);

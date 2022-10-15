@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import axios from "../../api/axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,26 +13,42 @@ const Account = () => {
     "바다",
     "사진",
     "풍경",
-  ]); // 관심사 리스트
+  ]);
+  const [address, setAddress] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [introduce, setIntroduce] = useState("안녕하세요");
+  const [nickname, setNickname] = useState("");
+
+  // 관심사 리스트
   // const [users, setUsers] = useState([]);
 
+  // 리랜더링되면 실행 되는 코드
+  useEffect(() => {
+    fetchUserData();
+  }, []);
   // 회원 확인 코드
-  const fetchUserData = async () => {};
+  const fetchUserData = async () => {
+    // 추후 개발
+    try {
+      // 세션 회원 확인
+      const id = "1";
+      // const request = await axios.get(requests.fetchUsers);
+      const request = await axios.get(`/api/v1/member/${id}`);
+      // setUsers(request.data.results);
+      setAddress(request.data.address);
+      setAge(request.data.age);
+      setGender(request.data.gender);
+      setIntroduce(request.data.introduce);
+      setNickname(request.data.nickname);
+    } catch (error) {
+      // 응답 실패 (로그아웃상태)
+      alert("로그인 후 사용가능합니다.");
+    }
+  };
   const AccountPagePlus = async () => {
     // 추가 정보 더보기
     setPagestatus("추가정보화면");
-    try {
-      // const request = await axios.get(requests.fetchUsers);
-      const request = await axios.get("/api/v1/members");
-      // setUsers(request.data.results);
-      console.log("request", request);
-
-      setPagestatus("등록완료화면");
-    } catch (error) {
-      // 응답 실패
-      alert("이미 존재하는 회원입니다.");
-      setPagestatus("번호화면");
-    }
   };
 
   // 추가 정보 바뀌는 화면 설정
@@ -103,9 +119,11 @@ const Account = () => {
         ></Image>
       </Row>
       <Row className="text-center">
-        <div className="fs-1 fw-bold">김당근</div>
-        <div>25세 여성</div>
-        <div className="text-muted">서울특별시</div>
+        <div className="fs-1 fw-bold">{nickname}</div>
+        <div>
+          {age}세 {gender}
+        </div>
+        <div className="text-muted">{address}</div>
       </Row>
       <hr></hr>
       <Row>
@@ -113,8 +131,7 @@ const Account = () => {
           소개
         </Col>
         <Col xs={9} sm={9}>
-          바다를 사랑하고 엑티브한 활동을 좋아해요 잘맞는 분들과 여행가고 싶어요
-          :) 잘부탁드립니다.
+          {introduce}
         </Col>
       </Row>
       <Row>
