@@ -28,14 +28,6 @@ public class MemberService {
 		memberRepository.save(memberV2Dto.toEntity());
 		return memberV2Dto.getId();
 	}
-	
-//	@Transactional
-//	public Long join(Member member) {
-//		
-//		validateDuplicateMember(member); // 중복 회원 검증
-//		memberRepository.save(member);
-//		return member.getId();
-//	}
 
 	private void validateDuplicateMember(MemberV2Dto memberV2Dto) {
 		List<Member> findMembers = memberRepository.findByPhone(memberV2Dto.getPhone());
@@ -49,11 +41,17 @@ public class MemberService {
 	public List<Member> findMembers() {
 		return memberRepository.findAll();
 	}
-	
+	// 회원 단건 조회
 	public MemberV2Dto findById(Long memberId) {
 		Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다"));
 		return new MemberV2Dto(member);
 	}
+	// 회원 단건 수정
+	public Long update(Long memberId, MemberV2Dto memberV2Dto) {
+		Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다"));
+		member.update(memberV2Dto.getAge(), memberV2Dto.getIntroduce(), memberV2Dto.getAddress(), memberV2Dto.getJob(), memberV2Dto.getSchool(), memberV2Dto.getMbti(), memberV2Dto.getLove_status(), memberV2Dto.getReligion());
+		return memberId;
+	};
 //	
 //	public Member findOne(Long memberId) {
 //		return memberRepository.findById(memberId).get();

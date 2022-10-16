@@ -26,6 +26,12 @@ public class MemberV2Dto {
 	private String introduce;
 	private String address;
 	private boolean marketing_agree;
+	private String job;
+	private String school;
+	private String mbti;
+	private String love_status;
+	private String religion;
+
 	
 	@Builder
 	public MemberV2Dto(
@@ -50,6 +56,7 @@ public class MemberV2Dto {
 		this.introduce = introduce;
 		this.address = address;
 		this.marketing_agree = marketing_agree;
+		
 	}
 	/*
 	 * 회원 등록
@@ -81,6 +88,10 @@ public class MemberV2Dto {
 		this.profile_filed = member.getProfile_filed();
 		this.introduce = member.getIntroduce();
 		this.address = member.getAddress();
-
+		this.job = member.getJob();
+		this.school = member.getSchool();
+		this.mbti = member.getMbti();
+		this.love_status = member.getLove_status();
+		this.religion = member.getReligion();
 	}
 }

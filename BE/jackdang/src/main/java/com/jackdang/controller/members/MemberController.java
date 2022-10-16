@@ -62,10 +62,6 @@ public class MemberController {
     public MemberV2Dto findById(@PathVariable Long memberid) {
     	return memberService.findById(memberid);
     }
-    /*
-     * 회원 상세 조회
-     * 회원 마이페이지 상세정보 조회
-     */
     
     
     /*
@@ -89,6 +85,10 @@ public class MemberController {
     /*
      * 회원 내용 수정 및 비밀번호 수정
      */
+    @PutMapping("/api/v1/member/{memberid}") 
+    public Long update(@PathVariable Long memberid, @RequestBody MemberV2Dto memberV2Dto){
+    	return memberService.update(memberid, memberV2Dto);
+    }
 //    @PutMapping("/api/v1/members/{id}")
 //    public UpdateMemberResponse updateMemberV1(
 //    		@PathVariable("id") Long id,
