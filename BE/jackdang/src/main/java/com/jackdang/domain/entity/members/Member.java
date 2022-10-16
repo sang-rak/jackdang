@@ -33,6 +33,11 @@ public class Member extends BaseEntity {
 	private String profile_filed;
 	private String introduce;
 	private String address;
+	private String job;
+	private String school;
+	private String mbti;
+	private String love_status;
+	private String religion;
 	private boolean marketing_agree;
 	
 	@Builder
@@ -58,6 +63,18 @@ public class Member extends BaseEntity {
 		this.introduce = introduce;
 		this.address = address;
 		this.marketing_agree = marketing_agree;
+	}
+
+	public void update(int age, String introduce, String address, String job, String school, String mbti, String love_status, String religion) {
+		this.age = age;
+		this.introduce = introduce;
+		this.address = address;
+		this.job = job;
+		this.school = school;
+		this.mbti = mbti;
+		this.love_status = love_status;
+		this.religion = religion;
+		
 	}
 	
 }
