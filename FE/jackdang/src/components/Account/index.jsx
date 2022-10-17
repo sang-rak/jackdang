@@ -64,9 +64,16 @@ const Account = () => {
       const response = await axios.put(`/api/v1/member/${id}`, {
         //보내고자 하는 데이터
         age: age,
+        introduce: introduce,
+        address: address,
+        job: job,
+        school: school,
+        mbti: mbti,
+        love_status: love_status,
+        religion: religion,
       });
       console.log(response);
-
+      setEditUse(true);
       setPagestatus("추가정보화면");
     } catch (error) {
       // 응답 실패 (로그아웃상태)
@@ -81,6 +88,10 @@ const Account = () => {
   /*
    * 마이페이지 편집 로직
    */
+  // 소개변경
+  const handleChangeIntroduce = ({ target: { value } }) => {
+    setIntroduce(value);
+  };
   // 나이변경
   const handleChangeAge = ({ target: { value } }) => {
     setAge(value);
@@ -176,13 +187,27 @@ const Account = () => {
           <>
             <Row>
               <Col xs={3} sm={3} className="text-primary">
+                소개
+              </Col>
+              <Col xs={9} sm={9}>
+                <Form.Control
+                  type="introduce"
+                  name="introduce"
+                  value={introduce || ""}
+                  onChange={handleChangeIntroduce}
+                  placeholder="소개"
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={3} sm={3} className="text-primary">
                 나이
               </Col>
               <Col xs={9} sm={9}>
                 <Form.Control
                   type="age"
                   name="age"
-                  value={age}
+                  value={age || ""}
                   onChange={handleChangeAge}
                   placeholder="나이"
                 />
@@ -196,7 +221,7 @@ const Account = () => {
                 <Form.Control
                   type="address"
                   name="address"
-                  value={address}
+                  value={address || ""}
                   onChange={handleChangeAddress}
                   placeholder="지역"
                 />
@@ -210,7 +235,7 @@ const Account = () => {
                 <Form.Control
                   type="job"
                   name="job"
-                  value={job}
+                  value={job || ""}
                   onChange={handleChangeJob}
                   placeholder="직업"
                 />
@@ -224,7 +249,7 @@ const Account = () => {
                 <Form.Control
                   type="school"
                   name="school"
-                  value={school}
+                  value={school || ""}
                   onChange={handleChangeSchool}
                   placeholder="학교"
                 />
@@ -238,7 +263,7 @@ const Account = () => {
                 <Form.Control
                   type="mbti"
                   name="mbti"
-                  value={mbti}
+                  value={mbti || ""}
                   onChange={handleChangeMbti}
                   placeholder="MBTI"
                 />
@@ -252,7 +277,7 @@ const Account = () => {
                 <Form.Control
                   type="love_status"
                   name="love_status"
-                  value={love_status}
+                  value={love_status || ""}
                   onChange={handleChangeLove_status}
                   placeholder="연애"
                 />
@@ -266,7 +291,7 @@ const Account = () => {
                 <Form.Control
                   type="religion"
                   name="religion"
-                  value={religion}
+                  value={religion || ""}
                   onChange={handleChangeReligion}
                   placeholder="종교"
                 />
