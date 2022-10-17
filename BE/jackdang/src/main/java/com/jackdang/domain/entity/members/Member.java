@@ -65,7 +65,8 @@ public class Member extends BaseEntity {
 		this.marketing_agree = marketing_agree;
 	}
 
-	public void update(int age, String introduce, String address, String job, String school, String mbti, String love_status, String religion) {
+	public void update(String password, int age, String introduce, String address, String job, String school, String mbti, String love_status, String religion) {
+		this.password = password;
 		this.age = age;
 		this.introduce = introduce;
 		this.address = address;
