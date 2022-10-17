@@ -10,8 +10,8 @@ import javax.validation.Valid;
 import com.jackdang.common.auth.JwtAuthProvider;
 import com.jackdang.controller.members.dto.AuthDto.AuthLoginRequest;
 import com.jackdang.controller.members.dto.AuthDto.AuthLoginResponse;
+import com.jackdang.controller.members.dto.MemberDto;
 import com.jackdang.controller.members.dto.MemberDto.*;
-import com.jackdang.controller.members.dto.MemberV2Dto;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -34,37 +34,21 @@ public class MemberController {
      * 
      */
     @PostMapping("/api/v1/members")
-    public Long saveMemberV1(@RequestBody MemberV2Dto memberV2Dto) {
-    	return memberService.save(memberV2Dto);
+    public Long saveMemberV1(@RequestBody MemberDto memberDto) {
+    	return memberService.save(memberDto);
     }
     
-//    @PostMapping("/api/v1/members")
-//    public CreateMemberResponse saveMemberV1(@RequestBody @Valid CreateMemberRequest request) {
-//    	
-//    	Member member = new Member();
-//    	member.setPhone(request.getPhone());
-//    	member.setPassword(request.getPassword());
-//    	member.setNickname(request.getNickname());
-//    	member.setGender(request.getGender());
-//    	member.setAge(request.getAge());
-//    	member.setMarketing_agree(request.isMarketing_agree());
-//    	 
-//    	Long id = memberService.join(member);
-//    	
-//    	return new CreateMemberResponse(id);
-//    }
-
-    /*
+    /**
      * 회원 조회
      * 회원 기본정보 조회
      */
     @GetMapping("/api/v1/member/{memberid}")
-    public MemberV2Dto findById(@PathVariable Long memberid) {
+    public MemberDto findById(@PathVariable Long memberid) {
     	return memberService.findById(memberid);
     }
     
     
-    /*
+    /**
      * 전체 회원 조회
      */
     
@@ -77,28 +61,19 @@ public class MemberController {
     	
     	return new Result(collect.size(), collect);
     }
-    /*
+    /**
      * 회원 삭제
      * 회원가입한 고객이 인증번호를 제시못할경우 상제
      */
     
-    /*
+    /**
      * 회원 내용 수정 및 비밀번호 수정
      */
     @PutMapping("/api/v1/member/{memberid}") 
-    public Long update(@PathVariable Long memberid, @RequestBody MemberV2Dto memberV2Dto){
-    	return memberService.update(memberid, memberV2Dto);
+    public Long update(@PathVariable Long memberid, @RequestBody MemberDto memberDto){
+    	return memberService.update(memberid, memberDto);
     }
-//    @PutMapping("/api/v1/members/{id}")
-//    public UpdateMemberResponse updateMemberV1(
-//    		@PathVariable("id") Long id,
-//    		@RequestBody @Valid UpdateMemberRequest request) {
-//  
-//    	memberService.update(id, request.getPassword());
-//    	Member findMember = memberService.findOne(id);
-//    	return new UpdateMemberResponse(findMember.getId(), findMember.getPassword());
-//    	
-//    }
+
 
 	/**
 	 * 회원 로그인
