@@ -1,13 +1,18 @@
 package com.jackdang.domain.entity.members;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jackdang.domain.entity.common.BaseEntity;
+import com.jackdang.domain.entity.interests.Interest;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -39,6 +44,9 @@ public class Member extends BaseEntity {
 	private String love_status;
 	private String religion;
 	private boolean marketing_agree;
+	
+	@OneToMany(mappedBy = "member")
+	private List<Interest> interests = new ArrayList<>();
 	
 	@Builder
 	public Member(
