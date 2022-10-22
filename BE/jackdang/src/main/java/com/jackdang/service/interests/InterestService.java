@@ -10,6 +10,7 @@ import com.jackdang.controller.members.dto.MemberDto;
 import com.jackdang.domain.entity.interests.Interest;
 import com.jackdang.domain.entity.members.Member;
 import com.jackdang.domain.repository.interests.InterestRepository;
+import com.jackdang.domain.repository.members.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,16 +20,28 @@ import lombok.RequiredArgsConstructor;
 public class InterestService {
 	
 	private final InterestRepository interestRepository;
+	private final MemberRepository memberRepository;
+	
+	/*
+	 *  관심사 등록
+	 */
+	@Transactional
+	public Long save(InterestDto interestDto) {
+		interestRepository.save(interestDto.toEntity());
+		return interestDto.getId();
+	}
+
+
 	
 	// 관심사 전체 조회
 	public List<Interest> findInterests() {
 		return interestRepository.findAll();
 	}
 	
-	// 관심사 단건 조회
+	// 관심사 회원 다건 조회
 	public InterestDto findById(Long memberId) {
 		List<Interest> interest= interestRepository.findByMember_id(memberId);
-		return new InterestDto(interest);
+		return new InterestDto(interest.get(0));
 	}
 	
 

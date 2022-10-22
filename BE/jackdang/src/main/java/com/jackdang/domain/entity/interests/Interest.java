@@ -29,17 +29,25 @@ public class Interest extends BaseTimeEntity {
 	private String interest_nm;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id")
+	@JoinColumn(name = "member_id", insertable = false, updatable = false)
 	private Member member;
+	
+	@Column(name = "member_id")
+	private Long memberId;
 	
 	@Builder
 	public Interest(
 			Long id, 
 			String interest_nm,
-			Member member
+			Long memberId
 			) {
 		this.id = id;
 		this.interest_nm = interest_nm;
-		this.member = member;
-	}	
+		this.memberId = memberId;
+	}
+	
+	public Interest(Long memberId) {
+		this.memberId = memberId;
+	}
+
 }

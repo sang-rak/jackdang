@@ -51,7 +51,6 @@ public class MemberController {
     /**
      * 전체 회원 조회
      */
-    
     @GetMapping("/api/v1/members")
     public Result memberV1() {
     	List<Member> findMembers = memberService.findMembers();
@@ -63,7 +62,7 @@ public class MemberController {
     }
     /**
      * 회원 삭제
-     * 회원가입한 고객이 인증번호를 제시못할경우 상제
+     * 회원가입한 고객이 인증번호를 제시못할경우 삭제
      */
     
     /**

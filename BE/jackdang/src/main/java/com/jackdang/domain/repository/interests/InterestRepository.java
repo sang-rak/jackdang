@@ -8,5 +8,5 @@ import com.jackdang.domain.entity.interests.Interest;
 
 
 public interface InterestRepository extends JpaRepository<Interest, Long> {
-	List<Interest> findByMember_id(Long memberId);
+	List<Interest> findByMember_id(Long member_id);
 }
