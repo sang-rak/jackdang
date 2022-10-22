@@ -27,18 +27,25 @@ public class InterestDto {
 	private String interest_nm;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id")
+	@JoinColumn(name = "member_id", insertable = false, updatable = false)
 	private Member member;
+	
+	@Column(name = "member_id")
+	private Long memberId;
 	
 	@Builder
 	public InterestDto(
 			Long id,
 			String interest_nm,
-			Member member
+			Long memberId
 			) {
 		this.id = id;
 		this.interest_nm = interest_nm;
-		this.member = member;
+		this.memberId = memberId;
+	};
+	
+	public InterestDto(Long memberId) {
+		this.memberId = memberId;
 	}
 	/*
 	 * 관심사 등록
@@ -47,17 +54,16 @@ public class InterestDto {
 		return Interest.builder()
 				.id(id)
 				.interest_nm(interest_nm)
-				.member(member)
+				.memberId(memberId)
 				.build();
-	}
+	};
 	/*
 	 * 관심사 조회
 	 */
-	public InterestDto(List<Interest> interest) {
-		this.id = ((Interest) interest).getId();
-		this.interest_nm = ((Interest) interest).getInterest_nm();
-		this.member = ((Interest) interest).getMember();
+	public InterestDto(Interest interest) {
+		this.id = interest.getId();
+		this.interest_nm = interest.getInterest_nm();
+		this.memberId = interest.getMemberId();
 
-	}
-	
+	};
 }
