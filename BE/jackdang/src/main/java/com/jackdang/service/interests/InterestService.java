@@ -31,7 +31,13 @@ public class InterestService {
 		return interestDto.getId();
 	}
 
-
+	// 회원 단건 수정
+	@Transactional
+	public Long update(Long interestId, InterestDto interestDto) {
+		Interest interest = interestRepository.findById(interestId).orElseThrow(() -> new IllegalArgumentException("해당 관심사가 없습니다"));
+		interest.update(interestDto.getInterest_nm(), interestDto.getMember());
+		return interestId;
+	};
 	
 	// 관심사 전체 조회
 	public List<Interest> findInterests() {

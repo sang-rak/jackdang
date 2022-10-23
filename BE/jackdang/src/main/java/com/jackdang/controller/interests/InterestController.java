@@ -39,10 +39,10 @@ public class InterestController {
     /**
      * 회원 내용 수정 및 비밀번호 수정
      */
-//    @PutMapping("/api/v1/member/{memberid}") 
-//    public Long update(@PathVariable Long memberid, @RequestBody MemberDto memberDto){
-//    	return memberService.update(memberid, memberDto);
-//    }
+    @PutMapping("/api/v1/interest/{interestid}") 
+    public Long update(@PathVariable Long interestid, @RequestBody InterestDto interestDto){
+    	return interestService.update(interestid, interestDto);
+    }
 
     /**
      * 회원 관심사 전체 조회
