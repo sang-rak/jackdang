@@ -32,22 +32,27 @@ public class Interest extends BaseTimeEntity {
 	@JoinColumn(name = "member_id", insertable = false, updatable = false)
 	private Member member;
 	
-	@Column(name = "member_id")
-	private Long memberId;
+//	@Column(name = "member_id")
+//	private Long memberId;
 	
 	@Builder
 	public Interest(
 			Long id, 
 			String interest_nm,
-			Long memberId
+			Member member
 			) {
 		this.id = id;
 		this.interest_nm = interest_nm;
-		this.memberId = memberId;
+		this.member = member;
 	}
 	
-	public Interest(Long memberId) {
-		this.memberId = memberId;
+	public Interest(Member member) {
+		this.member = member;
 	}
 
+	public void update(String interest_nm, Member member) {
+		this.interest_nm = interest_nm;
+		this.member = member;
+		
+	}
 }
