@@ -28,21 +28,14 @@ public class InterestController {
 	
     /*
      * 관심사등록
-     * param: 
+     * param: interest_nm 관심사 이름, member_id 회원ID
      * 
      */
-    @PostMapping("/api/v1/interests")
+    @PostMapping("/api/v1/interest")
     public Long saveInterestV1(@RequestBody InterestDto interestDto) {
     	return interestService.save(interestDto);
     }
     
-    /**
-     * 회원 내용 수정 및 비밀번호 수정
-     */
-    @PutMapping("/api/v1/interest/{interestid}") 
-    public Long update(@PathVariable Long interestid, @RequestBody InterestDto interestDto){
-    	return interestService.update(interestid, interestDto);
-    }
 
     /**
      * 회원 관심사 전체 조회
