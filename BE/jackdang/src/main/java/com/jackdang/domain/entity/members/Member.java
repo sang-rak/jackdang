@@ -1,13 +1,18 @@
 package com.jackdang.domain.entity.members;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jackdang.domain.entity.common.BaseEntity;
+import com.jackdang.domain.entity.interests.Interest;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -33,7 +38,15 @@ public class Member extends BaseEntity {
 	private String profile_filed;
 	private String introduce;
 	private String address;
+	private String job;
+	private String school;
+	private String mbti;
+	private String love_status;
+	private String religion;
 	private boolean marketing_agree;
+	
+	@OneToMany(mappedBy = "member")
+	private List<Interest> interests = new ArrayList<>();
 	
 	@Builder
 	public Member(
@@ -58,6 +71,19 @@ public class Member extends BaseEntity {
 		this.introduce = introduce;
 		this.address = address;
 		this.marketing_agree = marketing_agree;
+	}
+
+	public void update(String password, int age, String introduce, String address, String job, String school, String mbti, String love_status, String religion) {
+		this.password = password;
+		this.age = age;
+		this.introduce = introduce;
+		this.address = address;
+		this.job = job;
+		this.school = school;
+		this.mbti = mbti;
+		this.love_status = love_status;
+		this.religion = religion;
+		
 	}
 	
 }
