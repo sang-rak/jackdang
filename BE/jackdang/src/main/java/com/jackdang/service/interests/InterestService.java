@@ -37,9 +37,8 @@ public class InterestService {
 	}
 	
 	// 관심사 회원 다건 조회
-	public InterestDto findById(Long memberId) {
-		List<Interest> interest= interestRepository.findByMember_id(memberId);
-		return new InterestDto(interest.get(0));
+	public List<Interest> findByMember_id(Long memberId) {
+		return interestRepository.findByMember_id(memberId);
 	}
 	
 
