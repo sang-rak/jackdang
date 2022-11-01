@@ -13,7 +13,9 @@ import com.jackdang.controller.members.dto.MemberDto;
 import com.jackdang.domain.entity.interests.Interest;
 import com.jackdang.domain.entity.members.Member;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -66,4 +68,17 @@ public class InterestDto {
 		this.memberId = interest.getMemberId();
 
 	};
+	
+    @Data
+    @AllArgsConstructor
+    public static class Result<T> {
+    	private int count;
+    	private T data;
+    }
+    
+    @Data
+    @AllArgsConstructor
+    public static class InterestDtojoin {
+    	private String interest_nm;
+    }
 }
