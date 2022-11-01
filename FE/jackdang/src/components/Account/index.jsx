@@ -12,13 +12,7 @@ import { Button, Col, Form, Image, Row } from "react-bootstrap";
 const Account = () => {
   const Account_URL = "";
   const [pagestatus, setPagestatus] = useState(""); // 화면 상태 저장
-  const [likearr, setLikearr] = useState([
-    "하늘",
-    "여행",
-    "바다",
-    "사진",
-    "풍경",
-  ]);
+  const [likearr, setLikearr] = useState([]);
   const [address, setAddress] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
@@ -35,10 +29,26 @@ const Account = () => {
 
   // 리랜더링되면 실행
   useEffect(() => {
-    fetchUserData();
+    searchUserData(); // 회원정보 조회
+    searchInterestData(); // 관심사 조회
   }, []);
+  // 관심사 확인
+  const searchInterestData = async () => {
+    // 추후 개발
+    try {
+      // 세션 회원 확인
+      const id = "1";
+      // const request = await axios.get(requests.fetchUsers);
+      const request = await axios.get(`/api/v1/interest/${id}`);
+      setLikearr([request.data.data[0].interest_nm]);
+      console.log(request.data.data[0].interest_nm);
+    } catch (error) {
+      // 응답 실패 (로그아웃상태)
+      alert("로그인 후 사용가능합니다.");
+    }
+  };
   // 회원 확인
-  const fetchUserData = async () => {
+  const searchUserData = async () => {
     // 추후 개발
     try {
       // 세션 회원 확인
