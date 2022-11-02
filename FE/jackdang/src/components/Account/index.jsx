@@ -38,10 +38,10 @@ const Account = () => {
     try {
       // 세션 회원 확인
       const id = "1";
-      // const request = await axios.get(requests.fetchUsers);
       const request = await axios.get(`/api/v1/interest/${id}`);
-      setLikearr([request.data.data[0].interest_nm]);
-      console.log(request.data.data[0].interest_nm);
+      for (let i = 0; i < request.data.count; i++) {
+        likearr.push(request.data.data[i].interest_nm);
+      }
     } catch (error) {
       // 응답 실패 (로그아웃상태)
       alert("로그인 후 사용가능합니다.");
@@ -366,7 +366,7 @@ const Account = () => {
       </Row>
       <Row>
         <Col xs={3} sm={3} className="text-primary">
-          관심사
+          관심사 {likearr}
         </Col>
         <Col xs={9} sm={9}>
           <Row>
