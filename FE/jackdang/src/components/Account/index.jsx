@@ -130,10 +130,7 @@ const Account = () => {
   const handleChangeIntroduce = ({ target: { value } }) => {
     setIntroduce(value);
   };
-  // 관심사변경
-  const handleChangeInterest = ({ target: { value } }) => {
-    setInterest_nm(value);
-  };
+
   // 나이변경
   const handleChangeAge = ({ target: { value } }) => {
     setAge(value);
@@ -166,10 +163,6 @@ const Account = () => {
   // 관심사 등록 후 모달 제거
   const handleModalSubmit = () => {
     // 비지니스 로직
-    setOpen(false);
-  };
-
-  const handleModalCancel = () => {
     setOpen(false);
   };
 
@@ -263,19 +256,6 @@ const Account = () => {
                   +
                 </span>
               </Col>
-
-              {/* <Col xs={9} sm={9}>
-                <Form.Control
-                  type="interest_nm"
-                  name="interest_nm"
-                  value={interest_nm || ""}
-                  onChange={handleChangeInterest}
-                  placeholder="관심사"
-                />
-              </Col>
-              <Col className="text-center">
-                <Button onClick={addInterestData}>저장하기</Button>
-              </Col> */}
             </Row>
             <Row>
               <Col xs={3} sm={3} className="text-primary">
@@ -384,7 +364,7 @@ const Account = () => {
               <MyModal
                 isOpen={isOpen}
                 onSubmit={handleModalSubmit}
-                onCancel={handleModalCancel}
+                likearr={likearr}
               />
             </Row>
           </>
@@ -417,7 +397,7 @@ const Account = () => {
       <Row className="mx-5 my-3">
         <Image
           roundedCircle
-          src="https://thx.sfo2.cdn.digitaloceanspaces.com/wr/coverimages/m_11/%EC%9E%91%EB%8B%B9%ED%95%98%EB%8B%A4_11.jpg"
+          src="https://avatars.githubusercontent.com/u/62869880?v=4"
           alt=""
           className="rounded img-responsive center-block"
           size="sm"
