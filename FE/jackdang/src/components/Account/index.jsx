@@ -8,17 +8,11 @@ import {
   faX,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button, Col, Form, Image, Row } from "react-bootstrap";
-
+import MyModal from "./Modal";
 const Account = () => {
   const Account_URL = "";
   const [pagestatus, setPagestatus] = useState(""); // 화면 상태 저장
-  const [likearr, setLikearr] = useState([
-    "하늘",
-    "여행",
-    "바다",
-    "사진",
-    "풍경",
-  ]);
+  const [likearr, setLikearr] = useState([]);
   const [address, setAddress] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
@@ -28,17 +22,43 @@ const Account = () => {
   const [love_status, setLove_status] = useState("");
   const [religion, setReligion] = useState("");
   const [introduce, setIntroduce] = useState("안녕하세요");
+  const [interestNm, setInterestNm] = useState("");
   const [nickname, setNickname] = useState("");
   const [editUse, setEditUse] = useState(true); // 편집아이콘 여부
+  const [isOpen, setOpen] = useState(false); // 약관동의 모달 핸들링
   // 관심사 리스트
   // const [users, setUsers] = useState([]);
 
   // 리랜더링되면 실행
   useEffect(() => {
-    fetchUserData();
-  }, []);
+    searchUserData(); // 회원정보 조회
+    searchInterestData(); // 관심사 조회
+  });
+
+  // 약관동의 Modal
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  // 관심사 확인
+  const searchInterestData = async () => {
+    // 추후 개발
+    try {
+      // 임시 1번 회원 테스트
+      const id = "1";
+      likearr.length = 0; // 리스트 비우기
+      // 세션 회원 확인
+      const request = await axios.get(`/api/v1/interest/${id}`);
+      for (let i = 0; i < request.data.count; i++) {
+        likearr.push(request.data.data[i].interestNm);
+      }
+    } catch (error) {
+      // 응답 실패 (로그아웃상태)
+      alert("로그인 후 사용가능합니다.");
+    }
+  };
   // 회원 확인
-  const fetchUserData = async () => {
+  const searchUserData = async () => {
     // 추후 개발
     try {
       // 세션 회원 확인
@@ -81,6 +101,7 @@ const Account = () => {
       alert("로그인 후 사용가능합니다.");
     }
   };
+
   const AccountPagePlus = async () => {
     // 추가 정보 더보기
     setPagestatus("추가정보화면");
@@ -92,6 +113,7 @@ const Account = () => {
   const handleChangeIntroduce = ({ target: { value } }) => {
     setIntroduce(value);
   };
+
   // 나이변경
   const handleChangeAge = ({ target: { value } }) => {
     setAge(value);
@@ -119,6 +141,12 @@ const Account = () => {
   // 종교변경
   const handleChangeReligion = ({ target: { value } }) => {
     setReligion(value);
+  };
+
+  // 관심사 등록 후 모달 제거
+  const handleModalSubmit = () => {
+    // 비지니스 로직
+    setOpen(false);
   };
 
   const AccountEditBtnEvent = async () => {
@@ -197,6 +225,19 @@ const Account = () => {
                   onChange={handleChangeIntroduce}
                   placeholder="소개"
                 />
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={3} sm={3} className="text-primary">
+                관심사
+              </Col>
+              <Col>
+                <span
+                  onClick={handleClick}
+                  className="mx-1 badge bg-secondary text-wrap"
+                >
+                  +
+                </span>
               </Col>
             </Row>
             <Row>
@@ -302,6 +343,14 @@ const Account = () => {
                 <Button onClick={editUserData}>저장하기</Button>
               </Col>
             </Row>
+            <Row>
+              <MyModal
+                isOpen={isOpen}
+                onSubmit={handleModalSubmit}
+                likearr={likearr}
+                setLikearr={setLikearr}
+              />
+            </Row>
           </>
         );
       default:
@@ -332,7 +381,7 @@ const Account = () => {
       <Row className="mx-5 my-3">
         <Image
           roundedCircle
-          src="https://thx.sfo2.cdn.digitaloceanspaces.com/wr/coverimages/m_11/%EC%9E%91%EB%8B%B9%ED%95%98%EB%8B%A4_11.jpg"
+          src="https://avatars.githubusercontent.com/u/62869880?v=4"
           alt=""
           className="rounded img-responsive center-block"
           size="sm"

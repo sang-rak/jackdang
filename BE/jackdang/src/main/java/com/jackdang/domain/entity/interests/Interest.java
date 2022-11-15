@@ -26,7 +26,7 @@ public class Interest extends BaseTimeEntity {
 	@Column(name = "interest_id")
 	private Long id;
 	
-	private String interest_nm;
+	private String interestNm;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id", insertable = false, updatable = false)
@@ -38,11 +38,11 @@ public class Interest extends BaseTimeEntity {
 	@Builder
 	public Interest(
 			Long id, 
-			String interest_nm,
+			String interestNm,
 			Long memberId
 			) {
 		this.id = id;
-		this.interest_nm = interest_nm;
+		this.interestNm = interestNm;
 		this.memberId = memberId;
 	}
 	
@@ -50,8 +50,8 @@ public class Interest extends BaseTimeEntity {
 		this.member = member;
 	}
 
-	public void update(String interest_nm, Long memberId) {
-		this.interest_nm = interest_nm;
+	public void update(String interestNm, Long memberId) {
+		this.interestNm = interestNm;
 		this.memberId = memberId;
 		
 	}

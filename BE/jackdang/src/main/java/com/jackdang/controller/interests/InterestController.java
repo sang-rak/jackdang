@@ -3,6 +3,7 @@ package com.jackdang.controller.interests;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +39,15 @@ public class InterestController {
     	return interestService.save(interestDto);
     }
     
+    /**
+     * 관심사삭제
+     * param: interest_nm 관심사 이름, member_id 회원ID
+     */
+    @DeleteMapping("/api/v1/interest/{memberid}/{interestNm}")
+    public String deleteInterestV1(@PathVariable Long memberid, @PathVariable String interestNm) {
+    	interestService.delete(memberid, interestNm);
+    	return "redirect:/";
+    }
 
     /**
      * 회원 관심사 이름 전체 조회
@@ -47,7 +57,7 @@ public class InterestController {
     public Result findById(@PathVariable Long memberid) {
     	List<Interest> findMemberInterest = interestService.findByMember_id(memberid);
     	List<InterestDtojoin> collect = findMemberInterest.stream()
-    			.map(m -> new InterestDtojoin(m.getInterest_nm()))
+    			.map(m -> new InterestDtojoin(m.getInterestNm()))
 				.collect(Collectors.toList());
     	return new Result(collect.size(), collect);
     }
