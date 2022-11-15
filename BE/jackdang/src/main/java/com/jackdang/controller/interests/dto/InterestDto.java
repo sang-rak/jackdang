@@ -26,7 +26,7 @@ public class InterestDto {
 	@Column(name = "interest_id")
 	private Long id;
 	
-	private String interest_nm;
+	private String interestNm;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id", insertable = false, updatable = false)
@@ -38,11 +38,11 @@ public class InterestDto {
 	@Builder
 	public InterestDto(
 			Long id,
-			String interest_nm,
+			String interestNm,
 			Long memberId
 			) {
 		this.id = id;
-		this.interest_nm = interest_nm;
+		this.interestNm = interestNm;
 		this.memberId = memberId;
 	};
 	
@@ -55,7 +55,7 @@ public class InterestDto {
 	public Interest toEntity() {
 		return Interest.builder()
 				.id(id)
-				.interest_nm(interest_nm)
+				.interestNm(interestNm)
 				.memberId(memberId)
 				.build();
 	};
@@ -64,7 +64,7 @@ public class InterestDto {
 	 */
 	public InterestDto(Interest interest) {
 		this.id = interest.getId();
-		this.interest_nm = interest.getInterest_nm();
+		this.interestNm = interest.getInterestNm();
 		this.memberId = interest.getMemberId();
 
 	};
@@ -79,6 +79,6 @@ public class InterestDto {
     @Data
     @AllArgsConstructor
     public static class InterestDtojoin {
-    	private String interest_nm;
+    	private String interestNm;
     }
 }
