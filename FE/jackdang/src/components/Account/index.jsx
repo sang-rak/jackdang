@@ -22,7 +22,7 @@ const Account = () => {
   const [love_status, setLove_status] = useState("");
   const [religion, setReligion] = useState("");
   const [introduce, setIntroduce] = useState("안녕하세요");
-  const [interest_nm, setInterest_nm] = useState("");
+  const [interestNm, setInterestNm] = useState("");
   const [nickname, setNickname] = useState("");
   const [editUse, setEditUse] = useState(true); // 편집아이콘 여부
   const [isOpen, setOpen] = useState(false); // 약관동의 모달 핸들링
@@ -33,7 +33,7 @@ const Account = () => {
   useEffect(() => {
     searchUserData(); // 회원정보 조회
     searchInterestData(); // 관심사 조회
-  }, []);
+  });
 
   // 약관동의 Modal
   const handleClick = () => {
@@ -44,13 +44,13 @@ const Account = () => {
   const searchInterestData = async () => {
     // 추후 개발
     try {
-      // 세션 회원 확인
+      // 임시 1번 회원 테스트
       const id = "1";
-      // 리스트 비우기
-
+      likearr.length = 0; // 리스트 비우기
+      // 세션 회원 확인
       const request = await axios.get(`/api/v1/interest/${id}`);
       for (let i = 0; i < request.data.count; i++) {
-        likearr.push(request.data.data[i].interest_nm);
+        likearr.push(request.data.data[i].interestNm);
       }
     } catch (error) {
       // 응답 실패 (로그아웃상태)
@@ -101,24 +101,7 @@ const Account = () => {
       alert("로그인 후 사용가능합니다.");
     }
   };
-  // 회원 관심사 추가
-  const addInterestData = async () => {
-    try {
-      const id = "1";
-      const response = await axios.post("/api/v1/interest", {
-        //보내고자 하는 데이터
-        interest_nm: interest_nm,
-        memberId: id,
-      });
-      console.log(response);
-      setPagestatus("추가정보화면");
-      setInterest_nm({ ...interest_nm, interest_nm: "" });
-    } catch (error) {
-      // 응답 실패
-      alert("응답 실패");
-      setInterest_nm("");
-    }
-  };
+
   const AccountPagePlus = async () => {
     // 추가 정보 더보기
     setPagestatus("추가정보화면");
@@ -365,6 +348,7 @@ const Account = () => {
                 isOpen={isOpen}
                 onSubmit={handleModalSubmit}
                 likearr={likearr}
+                setLikearr={setLikearr}
               />
             </Row>
           </>
