@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jackdang.common.auth.JwtAuthProvider;
 import com.jackdang.controller.interests.dto.InterestDto;
 import com.jackdang.controller.interests.dto.InterestDto.InterestDtojoin;
 import com.jackdang.controller.members.dto.MemberDto;
