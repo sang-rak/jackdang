@@ -31,6 +31,7 @@ public class Member extends BaseEntity {
 	private String phone;
 	private String password;
 	// @Column(nullable = false, unique = true)
+	private String membership;
 	private String nickname;
 	// @Column(nullable = false)
 	private int age;
