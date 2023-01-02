@@ -1,6 +1,7 @@
 package com.jackdang.domain.entity.members;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -31,7 +32,8 @@ public class Member extends BaseEntity {
 	private String phone;
 	private String password;
 	// @Column(nullable = false, unique = true)
-	private String membership;
+	private String username; // 로그인 아이디
+	private String membership; // 회원 등급
 	private String nickname;
 	// @Column(nullable = false)
 	private int age;
@@ -48,6 +50,13 @@ public class Member extends BaseEntity {
 	
 	@OneToMany(mappedBy = "member")
 	private List<Interest> interests = new ArrayList<>();
+	
+	public List<String> getMembershipList(){
+		if(this.membership.length() > 0) {
+			return Arrays.asList(this.membership.split(","));
+		}
+		return new ArrayList<>();
+	}
 	
 	@Builder
 	public Member(
@@ -86,5 +95,7 @@ public class Member extends BaseEntity {
 		this.religion = religion;
 		
 	}
+
+
 	
 }

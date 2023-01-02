@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jackdang.controller.members.dto.LoginRequestDto;
 import com.jackdang.controller.members.dto.MemberDto;
 import com.jackdang.domain.entity.members.Member;
 import com.jackdang.domain.repository.members.MemberRepository;
@@ -18,6 +19,8 @@ public class MemberService {
 	
 
 	private final MemberRepository memberRepository;
+	
+
 	
 	/*
 	 *  회원 가입
