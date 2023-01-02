@@ -7,15 +7,18 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.jackdang.controller.members.dto.LoginRequestDto;
 //import com.jackdang.common.auth.JwtAuthProvider;
 //import com.jackdang.controller.members.dto.AuthDto.AuthLoginRequest;
 //import com.jackdang.controller.members.dto.AuthDto.AuthLoginResponse;
 import com.jackdang.controller.members.dto.MemberDto;
 import com.jackdang.controller.members.dto.MemberDto.*;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import com.jackdang.domain.entity.members.Member;
+import com.jackdang.domain.repository.members.MemberRepository;
 import com.jackdang.service.members.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,9 +28,9 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
     private final MemberService memberService;
 //	private final JwtAuthProvider jwtAuthProvider;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-    
     /*
      * 회원가입
      * param: phone, password, nickname, gender, age, marketing_agree
@@ -35,6 +38,7 @@ public class MemberController {
      */
     @PostMapping("/api/v1/members")
     public Long saveMemberV1(@RequestBody MemberDto memberDto) {
+    	//memberDto.setPassword(bCryptPasswordEncoder.encode(memberDto.getPassword()));
     	return memberService.save(memberDto);
     }
     
